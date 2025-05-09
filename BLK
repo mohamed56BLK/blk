@@ -1,0 +1,117 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        section {
+            margin: 30px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: #222;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Elite Store</h1>
+        <nav>
+            <ul>
+                <li><a href="#login">Login</a></li>
+                <li><a href="#shop">Shop</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="login">
+        <h2>Login & Get 15% Off</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">Sign In</button>
+        </form>
+        <p id="discount-message"></p>
+    </section>
+
+    <section id="shop">
+        <h2>Featured Products</h2>
+        <div class="product">
+            <img src="shoe.jpg" alt="Sleek Running Shoe">
+            <p>Elite Running Shoe - $120</p>
+            <button>Add to Cart</button>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const now = new Date();
+            const expiryDate = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
+            document.cookie = `user=logged_in; expires=${expiryDate.toUTCString()}; path=/`;
+            document.cookie = `discount=15%; expires=${expiryDate.toUTCString()}; path=/`;
+            document.getElementById("discount-message").innerText = "You've got 15% off for one week!";
+        });
+
+        function checkCookies() {
+            if (document.cookie.includes("user=logged_in")) {
+                document.getElementById("discount-message").innerText = "You already have 15% off!";
+            }
+        }
+
+        window.onload = checkCookies;
+    </script>
+</body>
+</html>
